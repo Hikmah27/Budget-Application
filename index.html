@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./Bootstrap/bootstrap.css">
+    <script src="./Bootstrap/bootstrap.js"></script>
 </head>
 <body>
     <div class="mx-auto shadow-sm col-11 col-lg-7 col-md-7 shadow mt-5">
@@ -13,7 +14,7 @@
             BUDGET APPLICATION
           </h1>
         </div>
-        <div class="form-floating mb-3 col-5 w-100" style="">
+        <div class="form-floating mb-3 col-5 w-100">
           <input type="text" class="form-control" id="budgetItem" />
           <label for="Budget Item">Enter Your Budget Item</label>
         </div>
@@ -24,11 +25,41 @@
         <div class="form-floating">
             <button class="btn btn-danger text-white w-100" onclick="addItem()">Add Item</button>
         </div>
-        <div class="container-fluid shadow-sm my-4 col-lg-7 col-md-7 col-sm-12">
+        <div class="container-fluid shadow-sm col-lg-7 col-md-7 col-sm-12">
             <table class="table table-bordered table-striped" id="itemTable"></table>
         </div>
     </div>
-    <div id="display"></div>
+    <div class="container" id="allButtons" style="display: none;">
+      <button
+        class="btn btn-info col-lg-1 col-md-2 col-5 my-2 mx-auto"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop">Edit item
+      </button>
+    </div>
+    
+    <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit items</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-danger text-center" style="display: none;" id="modalError">Number Entered is Invalid</div>
+            <div class="alert alert-success text-center" style="display: none;" id="modalSuccess">Successfully Updated</div>
+            <input type="number" class="form-control my-3" placeholder="Enter the number to edit" id="editedIndex">
+            <input type="text" class="form-control my-3" placeholder="Enter the new value" id="editedDetails">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success" onclick="editOne()">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="display"></div>
+    
     <script src="./script.js"></script>
 </body>
 </html>
