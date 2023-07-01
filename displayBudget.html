@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./Bootstrap/bootstrap.css">
+    <script defer async src="./Bootstrap/bootstrap.js"></script>
+  </head>
+  <body onload="showBudget()">
+
+    <div id="displayBudget"></div>
+     <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <label for="editedName">Name of Item:</label><br>
+              <input type="text" id="editedName" name="editedName"><br>
+              <label for="editedQuantity">Quantity of item:</label><br>
+              <input type="text" id="editedQuantity" name="editedQuantity"><br>
+              <label for="editedPrice">Price of item:</label><br>
+              <input type="text" id="editedPrice" name="editedPrice"><br>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="update()">update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+    <script>
+      var retrievedBudget = [];
+      function showBudget() {
+        if (localStorage.budget) {
+          retrievedBudget = JSON.parse(localStorage.getItem("budget"));
+          for (i = 0; i < retrievedBudget.length; i++) {
+            console.log(retrievedBudget);
+            displayBudget.innerHTML += `
+                        <div class="col-5 g-3 my-4 mx-auto">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <span>Name:</span>
+                                        ${retrievedBudget[i].myItem}</h5>
+                                    <p class="card-text">
+                                        <span>Quantity:</span>
+                                        ${retrievedBudget[i].myQuantity}</p>
+                                    <p class="card-text">
+                                        <span>Price:</span>
+                                        ${retrievedBudget[i].myPrice}</p>
+                                    <button type="button" class="btn btn-primary" onclick="editItem()" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop">Edit</button>
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    `
+          }
+        }
+      }
+      // function editItem(index) {
+      //   editedIndex = index;
+      //   for (var i = 0; i < retrievedBudget.length; i++) {
+      //     console.log(`${retrievedBudget[i].budget}`);
+      //   }
+      //       editedName.value = retrievedBudget[i].myItem
+      //       editedQuantity.value = budgetArr[index].myQuantity
+      //       editedPrice.value = budgetArr[index].myPrice
+      // }
+    </script>
+  </body>
+</html>

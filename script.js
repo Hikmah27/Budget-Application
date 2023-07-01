@@ -1,17 +1,21 @@
 var budgetArr = [];
+var editedIndex = 0;
 
 function addItem() {
     if (budgetItem.value != "" && budgetPrice.value != "" ) {
         var itemObj = {
             myItem: budgetItem.value,
-            myPrice: budgetPrice.value
+            myQuantity: quantity.value,
+            myPrice: budgetPrice.value,
         }
         budgetArr.push(itemObj)
         console.log(budgetArr);
         budgetItem.value = ""
         budgetPrice.value = ""
+        quantity.value = ""
         displayItem();
         console.log(itemObj);
+   
     }
     else {
         display.innerHTML = `<h2 style= "margin-left: 50px; color: red"> Please Fill in all spaces</h2>`;
@@ -25,8 +29,10 @@ function displayItem() {
     itemTable.innerHTML = `
         <tr>
             <th>S/N</th>
-            <th>Budget Item</th>
-            <th>Budget Price</th>
+            <th>Item Name</th>
+            <th>Item Quantity</th>
+            <th>Item Price</th>
+            <th>Total Price</th>
             <th>Actions</th>
         </tr>
     `
@@ -35,10 +41,12 @@ function displayItem() {
         <tr>
             <td>${i+1}</td>
             <td>${budgetArr[i].myItem}</td>
+            <td>${budgetArr[i].myQuantity}</td>
             <td>${budgetArr[i].myPrice}</td>
+            <td>${(budgetArr[i].myQuantity)*(budgetArr[i].myPrice)}</td>
             <td>
-                <button class= "btn btn-warning" onclick= "editOne()">Edit</button>
-                <button class= "btn btn-danger" onclick= "deleteOne(${i})">Delete</button>
+                <button class= "btn btn-warning btn-sm" onclick= "editItem(${i})" data-bs-toggle="modal" data-bs-target= "#staticBackdrop">Edit</button>
+                <button class= "btn btn-danger btn-sm" onclick= "deleteOne(${i})">Delete</button>
             </td>
         </tr>
     `
@@ -46,28 +54,32 @@ function displayItem() {
 }
 
 function deleteOne(index) {
-    console.log(`${index}`);
-    budgetArr.splice(index,1)
-    displayItem()
+    var confirmation = confirm("Are you sure you will like to perform this operation?")
+    if (confirmation == true) {
+        budgetArr.splice(index,1)
+        console.log(`${index}`);
+        displayItem()
+    }
+
+}
+function editItem(index){
+    editedIndex = index;
+    editedName.value = budgetArr[index].myItem
+    editedQuantity.value = budgetArr[index].myQuantity
+    editedPrice.value = budgetArr[index].myPrice
 }
 
-function editOne() {
-    var newIndex = editedIndex.value;
-    var newItem = editedDetails.value;
-    console.log(newIndex, newItem);
-    if (editedIndex.value != "" && editedDetails.value != "") {
-        if (budgetArr.length > newIndex-1) {
-           budgetArr.splice(newIndex-1,1,newItem);
-           document.getElementById("modalError").style.display = "none" 
-           document.getElementById("modalSuccess").style.display = "block" 
-        }
-        else {
-            document.getElementById("modalError").style.display = "block" 
+function update() {
+    var updateObj ={
+        myItem : editedName.value,
+        myQuantity : editedQuantity.value,
+        myPrice : editedPrice.value
+    }
+budgetArr.splice(editedIndex, 1, updateObj);
+displayItem();
+}
 
-        }
-    }
-    else {
-        alert("Please fill in the details");
-    }
-    displayItem();
+function checkAll(){
+    localStorage.setItem("budget", JSON.stringify(budgetArr))
+    window.location.href = "displayBudget.html"
 }

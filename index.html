@@ -5,27 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./Bootstrap/bootstrap.css">
-    <script src="./Bootstrap/bootstrap.js"></script>
+    <script defer async src="./Bootstrap/bootstrap.js"></script>
 </head>
 <body>
     <div class="mx-auto shadow-sm col-11 col-lg-7 col-md-7 shadow mt-5">
-        <div class="row">
-          <h1 class="text-center text-danger mb-3">
-            BUDGET APPLICATION
+        <div class="row text-center mb-3">
+          <h1 class="text-black">
+            MINI BUDGET APP
           </h1>
+          <h3 class="text-dark">A Software program that helps you create a budget, <br> and keep track of your finances.</h3>
         </div>
         <div class="form-floating mb-3 col-5 w-100">
+          <label for="Budget Item">Enter the name of Item</label>
           <input type="text" class="form-control" id="budgetItem" />
-          <label for="Budget Item">Enter Your Budget Item</label>
         </div>
         <div class="form-floating mb-3 col-5 w-100">
+          <label for="budgetPrice">Enter the Price</label>
           <input type="number" class="form-control" id="budgetPrice" />
-          <label for="Budget Price">Enter Price</label>
+        </div>
+        <div class="form-floating mb-3 col-5 w-100">
+          <label for="quantity">Enter Quantity</label>
+          <input type="number" class="form-control" id="quantity" />
         </div>
         <div class="form-floating">
-            <button class="btn btn-danger text-white w-100" onclick="addItem()">Add Item</button>
+            <button class="btn btn-success text-white w-100" onclick="addItem()">Add Item</button>
         </div>
-        <div class="container-fluid shadow-sm col-lg-7 col-md-7 col-sm-12">
+        <div class="form-floating">
+          <button class="btn btn-success text-white w-100 mt-3 " onclick="checkAll()">Check All Item</button>
+      </div>
+        <br>
+        <div class="container-fluid shadow-sm col-lg-12 col-md-7 col-sm-12">
             <table class="table table-bordered table-striped" id="itemTable"></table>
         </div>
     </div>
@@ -37,29 +46,31 @@
       </button>
     </div>
     
-    <!-- Modal -->
+     <!-- Modal -->
   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit items</h1>
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <div class="alert alert-danger text-center" style="display: none;" id="modalError">Number Entered is Invalid</div>
-            <div class="alert alert-success text-center" style="display: none;" id="modalSuccess">Successfully Updated</div>
-            <input type="number" class="form-control my-3" placeholder="Enter the number to edit" id="editedIndex">
-            <input type="text" class="form-control my-3" placeholder="Enter the new value" id="editedDetails">
+            <label for="editedName">Name of Item:</label><br>
+            <input type="text" id="editedName" name="editedName"><br>
+            <label for="editedQuantity">Quantity of item:</label><br>
+            <input type="text" id="editedQuantity" name="editedQuantity"><br>
+            <label for="editedPrice">Price of item:</label><br>
+            <input type="text" id="editedPrice" name="editedPrice"><br>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-success" onclick="editOne()">Update</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="update()">update</button>
         </div>
       </div>
     </div>
   </div>
   <div id="display"></div>
     
-    <script src="./script.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>
